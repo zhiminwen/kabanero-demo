@@ -33,15 +33,16 @@ func init() {
 
 func T00_init_namespace() {
 	cmd := quote.CmdTemplate(`
-    oc login -u admin -p password
+    oc login -u admin -p {{ .password }}
     oc new-project {{ .project }} || oc project {{ .project }}
     mkdir -p {{ .dir }}
     mkdir -p {{ .dir }}/backend
     mkdir -p {{ .dir }}/frontend
     
   `, map[string]string{
-		"project": project,
-		"dir":     workingDir,
+		"password": os.Getenv("OCP_PASSWORD"),
+		"project":  project,
+		"dir":      workingDir,
 	})
 	master.Execute(cmd)
 }
