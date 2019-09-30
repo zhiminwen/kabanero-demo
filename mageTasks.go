@@ -73,7 +73,6 @@ func (Backend) T01_build_and_push_image() {
     cd {{ .dir }}/backend
     buildah build-using-dockerfile -f ./Dockerfile -t {{ .tag }} .
 
-    oc login -u admin -p password
     buildah push --tls-verify=false --creds=anyone:$(oc whoami -t) {{ .tag }} docker://docker-registry-default.apps.ocp.io.cpak/{{ .project }}/{{ .tag }}
  
   `, map[string]string{
@@ -112,8 +111,6 @@ func (Front) T01_build_and_push_image() {
 	cmd = quote.CmdTemplate(`
     cd {{ .dir }}/frontend
     buildah build-using-dockerfile -f ./Dockerfile -t {{ .tag }} .
-
-    oc login -u admin -p password
     buildah push --tls-verify=false --creds=anyone:$(oc whoami -t) {{ .tag }} docker://docker-registry-default.apps.ocp.io.cpak/{{ .project }}/{{ .tag }}
  
   `, map[string]string{
