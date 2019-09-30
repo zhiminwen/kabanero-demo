@@ -1,0 +1,3 @@
+A sample application to visually demonstrate the Knative application routing capability that is installed in Kabenero.
+- Blue/Green Deployment
+- Canary Deployment
